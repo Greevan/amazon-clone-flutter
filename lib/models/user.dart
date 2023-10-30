@@ -3,6 +3,7 @@ import 'dart:convert';
 class User {
   final String id;
   final String name;
+  final String email;
   final String password;
   final String address;
   final String type;
@@ -11,39 +12,37 @@ class User {
   User({
     required this.id,
     required this.name,
+    required this.email,
     required this.password,
     required this.address,
     required this.type,
     required this.token,
   });
 
-  // Generate JSON serialization
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'name': name,
-      'password': password,
-      'address': address,
-      'type': type,
-      'token': token,
+      "id": this.id,
+      "name": this.name,
+      "email": this.email,
+      "password": this.password,
+      "address": this.address,
+      "type": this.type,
+      "token": this.token,
     };
   }
-
-  // Factory constructor to create a User object from a JSON map
-  factory User.fromMap(Map<String, dynamic> map) {
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: map['_id'],
-      name: map['name'],
-      password: map['password'],
-      address: map['address'],
-      type: map['type'], // <- Add the missing required parameter
-      token: map['token'],
+      id: json["_id"],
+      name: json["name"],
+      password: json["password"],
+      address: json["address"],
+      type: json["type"],
+      token: json["token"],
+      email: json["email"],
     );
   }
 
-  // Serialize the User object to a JSON string
-  String toJson() => json.encode(toMap()); // <- Change the return type to string
 
-  // Factory constructor to create a User object from a JSON string
-  factory User.fromJson(String source) => User.fromMap(json.decode(source));
+
+
 }
